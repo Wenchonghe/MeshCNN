@@ -56,7 +56,7 @@ def from_scratch(file, opt):
     faces, face_areas = remove_non_manifolds(mesh_data, faces)
     if opt.num_aug > 1:
         faces = augmentation(mesh_data, opt, faces)
-    build_gemm(mesh_data, faces, face_areas)
+    build_gemm(mesh_data,opt, faces, face_areas)
     if opt.num_aug > 1:
         post_augmentation(mesh_data, opt)
     mesh_data.features = extract_features(mesh_data)
@@ -113,7 +113,7 @@ def remove_non_manifolds(mesh, faces):
     return faces[mask], face_areas[mask]
 
 
-def build_gemm(mesh, faces, face_areas):
+def build_gemm(mesh, opt, faces, face_areas):
     """
     gemm_edges: array (#E x 4) of the 4 one-ring neighbors for each edge
     sides: array (#E x 4) indices (values of: 0,1,2,3) indicating where an edge is in the gemm_edge entry of the 4 neighboring edges
@@ -155,7 +155,7 @@ def build_gemm(mesh, faces, face_areas):
             edge_key = edge2key[edge]
             sides[edge_key][nb_count[edge_key] - 2] = nb_count[edge2key[faces_edges[(idx + 1) % 3]]] - 1
             sides[edge_key][nb_count[edge_key] - 1] = nb_count[edge2key[faces_edges[(idx + 2) % 3]]] - 2
-    for s in range(self.opt.ninput_edges - len(edges)):
+    for s in range(opt.ninput_edges - len(edges)):
         edge = edges[-1]
         edge_nb_temp = edge_nb[-1]
         sides_temp = sides[-1]
