@@ -155,7 +155,7 @@ def build_gemm(mesh, opt, faces, face_areas):
             edge_key = edge2key[edge]
             sides[edge_key][nb_count[edge_key] - 2] = nb_count[edge2key[faces_edges[(idx + 1) % 3]]] - 1
             sides[edge_key][nb_count[edge_key] - 1] = nb_count[edge2key[faces_edges[(idx + 2) % 3]]] - 2
-    for s in range(opt.ninput_edges - len(edges)):
+    for s in range(opt.ninput_edges - edges_count):
         edge = edges[-1]
         edge_nb_temp = edge_nb[-1]
         sides_temp = sides[-1]
@@ -166,7 +166,7 @@ def build_gemm(mesh, opt, faces, face_areas):
         sides.append(sides_temp)
         mesh.edge_areas.append(edge_area_temp)
         nb_count.append(nb_count_temp)
-        edges_count = edges_count + 1		
+        #edges_count = edges_count + 1		
     mesh.edges = np.array(edges, dtype=np.int32)
     mesh.gemm_edges = np.array(edge_nb, dtype=np.int64)
     mesh.sides = np.array(sides, dtype=np.int64)
