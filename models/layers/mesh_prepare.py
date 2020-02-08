@@ -157,13 +157,11 @@ def build_gemm(mesh, faces, face_areas):
             sides[edge_key][nb_count[edge_key] - 1] = nb_count[edge2key[faces_edges[(idx + 2) % 3]]] - 2
 			
 	for s in range(self.opt.ninput_edges - len(edges)):
-	    
 		edge = edges[-1]
 		edge_nb_temp = edge_nb[-1]
 		sides_temp = sides[-1]
 		edge_area_temp = mesh.edge_areas[-1]
 		nb_count_temp = nb_count[-1]
-		
 		edges.append(list(edge))
 		edge_nb.append(edge_nb_temp)
 		sides.append(sides_temp)
