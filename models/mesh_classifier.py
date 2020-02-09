@@ -120,7 +120,7 @@ class ClassifierModel:
         if self.opt.dataset_mode == 'classification':
             correct = pred.eq(labels).sum()
         elif self.opt.dataset_mode == 'segmentation':
-            correct = pred.eq(labels).sum()/len(pred[0])
+            correct = pred.eq(labels).sum()#/len(pred[0])
         return correct
 
     def export_segmentation(self, pred_seg):
