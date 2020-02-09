@@ -1,4 +1,5 @@
 import time
+import torch
 from options.train_options import TrainOptions
 from data import DataLoader
 from models import create_model
